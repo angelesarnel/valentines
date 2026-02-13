@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 🤍</title>
+
+<style>
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to top, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* Glowing Name */
+.glow-name {
+    margin-top: 60px;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 0 10px white,
+                 0 0 20px white,
+                 0 0 30px #8ec5fc,
+                 0 0 40px #8ec5fc;
+}
+
+/* Tulips */
+.container {
+    margin-top: 60px;
+}
+
+.tulip {
+    display: inline-block;
+    margin: 0 15px;
+    animation: sway 4s infinite ease-in-out;
+}
+
+.flower {
+    width: 50px;
+    height: 70px;
+    background: white;
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255,255,255,0.9);
+}
+
+.flower::before,
+.flower::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    background: white;
+    border-radius: 50% 50% 0 0;
+}
+
+.flower::before {
+    left: -25px;
+    transform: rotate(-30deg);
+}
+
+.flower::after {
+    left: 25px;
+    transform: rotate(30deg);
+}
+
+.stem {
+    width: 6px;
+    height: 100px;
+    background: #4caf50;
+    margin: 0 auto;
+}
+
+@keyframes sway {
+    0%,100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+/* Button */
+button {
+    margin-top: 40px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+/* Password Screen */
+.password-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #0f2027;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+}
+
+/* Love Letter */
+.letter {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 350px;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.6);
+}
+
+.letter img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.close {
+    margin-top: 10px;
+    font-size: 14px;
+    color: gray;
+    cursor: pointer;
+}
+
+/* Stars */
+.star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Password Screen -->
+<div class="password-screen" id="passwordScreen">
+    <h2>Your Favorite Flowers 🤍</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Unlock</button>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent" style="display:none;">
+
+<div class="glow-name">
+    For Ingrid 🤍
+</div>
+
+<div class="container">
+    <div class="tulip">
+        <div class="flower"></div>
+        <div class="stem"></div>
+    </div>
+    <div class="tulip">
+        <div class="flower"></div>
+        <div class="stem"></div>
+    </div>
+    <div class="tulip">
+        <div class="flower"></div>
+        <div class="stem"></div>
+    </div>
+</div>
+
+<button onclick="openLetter()">💌 Open Love Letter</button>
+
+</div>
+
+<!-- Love Letter -->
+<div class="letter" id="loveLetter">
+    <img src="love.jpg" alt="Our Photo">
+    <h3>HIIIIII 🤍</h3>
+    <p>
+        You are my brightest star in every dark night.
+        Like these white tulips, my love for you is pure,
+        peaceful, and forever glowing.
+        Happy Valentine's Day.
+    </p>
+    <div class="close" onclick="closeLetter()">Close</div>
+</div>
+
+<!-- 🎵 Background Music (Starts After Password) -->
+<audio id="bgMusic" loop>
+    <source src="love1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* Password */
+function checkPassword() {
+    const password = document.getElementById("passwordInput").value;
+    if (password === "tulips") {
+
+        document.getElementById("passwordScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+
+        // 🎵 Play Music with Fade In
+        const music = document.getElementById("bgMusic");
+        music.volume = 0;
+        music.play();
+
+        let fade = setInterval(function () {
+            if (music.volume < 0.9) {
+                music.volume += 0.05;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+
+    } else {
+        alert("Wrong password 🤍");
+    }
+}
+
+/* Letter */
+function openLetter() {
+    document.getElementById("loveLetter").style.display = "block";
+}
+
+function closeLetter() {
+    document.getElementById("loveLetter").style.display = "none";
+}
+
+/* Stars */
+for (let i = 0; i < 120; i++) {
+    let star = document.createElement("div");
+    star.classList.add("star");
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.animationDuration = (Math.random() * 2 + 1) + "s";
+    document.body.appendChild(star);
+}
+
+</script>
+
+</body>
+</html>
